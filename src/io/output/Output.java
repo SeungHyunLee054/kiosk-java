@@ -1,14 +1,11 @@
 package io.output;
 
-import cart.service.CartService;
 import menu.domain.model.Menu;
 import menu.type.Category;
 
 import java.util.List;
 
 public class Output {
-    private final CartService cartService = new CartService();
-
     public void printMenu(List<Menu> menuList) {
         System.out.println("[ " + menuList.get(0).getCategory().name() + " MENU ]");
         for (Menu menu : menuList) {

@@ -4,10 +4,8 @@ import cart.domain.model.Cart;
 import cart.service.CartService;
 import io.input.exception.InputException;
 import io.input.type.Discount;
-import io.output.Output;
 import kiosk.Kiosk;
 import menu.domain.model.Menu;
-import menu.service.MenuService;
 import menu.type.Category;
 
 import java.util.List;
@@ -19,12 +17,9 @@ public class Input {
     private final int ZERO = 0;
     private final String ONE = "1";
     private final String TWO = "2";
-    private boolean continueFlag = false;
 
     private final Scanner scanner = new Scanner(System.in);
     private final CartService cartService = new CartService();
-    private final MenuService menuService = new MenuService();
-    private final Output output = new Output();
 
     public Menu inputMenu() {
         System.out.print("id를 입력해 주세요 : ");
