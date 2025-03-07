@@ -1,8 +1,7 @@
-package type;
+package menu.type;
 
 public enum Category {
-    HAMBURGER(1),DRINKS(2),DESSERTS(3)
-    ;
+    HAMBURGER(1), DRINKS(2), DESSERTS(3);
     private final int value;
 
     Category(int value) {
@@ -20,6 +19,6 @@ public enum Category {
             }
         }
 
-        throw new IllegalArgumentException("카테고리 오류");
+        throw new IllegalArgumentException("옳바르지 않은 입력값입니다.");
     }
 }
