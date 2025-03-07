@@ -1,7 +1,7 @@
 package module.io.input.type;
 
 public enum InputExceptionCode {
-    INPUT_WRONG("잘못된 값을 입력하였습니다.");
+    INPUT_WRONG("옳바르지 않은 입력값입니다.");
 
     private final String message;
 

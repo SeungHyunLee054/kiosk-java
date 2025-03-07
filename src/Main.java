@@ -9,7 +9,7 @@ public class Main {
         Input input = new Input();
         Output output = new Output();
         CartService cartService = new CartService();
-        MenuService menuService = new MenuService(input, output, cartService);
+        MenuService menuService = new MenuService();
         Kiosk kiosk = new Kiosk(menuService, input, output, cartService);
 
         kiosk.start();

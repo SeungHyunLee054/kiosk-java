@@ -18,11 +18,17 @@ public class CartService {
     private final int ONE = 1;
     private final int TWO = 2;
 
-    public List<Cart> addCart(Menu menu) {
+    public void addCart(Menu menu) {
+        System.out.println(menu.getName() + "     | W "
+                + menu.getPrice() + "       | " + menu.getDescription());
+        System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
+        System.out.println("1. 확인     2. 취소");
+
         int input = this.input.inputInt();
 
         if (ONE == input) {
-            return addCartItem(menu);
+            addCartItem(menu);
+            System.out.println(menu.getName() + " 이 장바구니에 추가되었습니다.");
         } else if (TWO == input) {
             throw new CartException(CANCEL_ADD_CART);
         } else {
@@ -30,7 +36,7 @@ public class CartService {
         }
     }
 
-    private List<Cart> addCartItem(Menu menu) {
+    private void addCartItem(Menu menu) {
         cartList.forEach(cart -> {
             if (cart.getMenu().getName().equals(menu.getName())) {
                 cart.setQuantity(cart.getQuantity() + 1);
@@ -39,10 +45,13 @@ public class CartService {
 
         cartList.add(new Cart(menu, 1));
 
-        return cartList;
     }
 
     public void removeCartList() {
         this.cartList = new ArrayList<>();
+    }
+
+    public List<Cart> getCartList() {
+        return cartList;
     }
 }

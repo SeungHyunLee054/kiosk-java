@@ -1,5 +1,9 @@
 package module.menu.type;
 
+import module.io.input.exception.InputException;
+
+import static module.io.input.type.InputExceptionCode.INPUT_WRONG;
+
 public enum Category {
     HAMBURGER(1), DRINKS(2), DESSERTS(3);
     private final int value;
@@ -19,6 +23,6 @@ public enum Category {
             }
         }
 
-        throw new IllegalArgumentException("옳바르지 않은 입력값입니다.");
+        throw new InputException(INPUT_WRONG);
     }
 }

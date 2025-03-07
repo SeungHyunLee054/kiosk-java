@@ -1,11 +1,5 @@
 package module.menu.service;
 
-import module.cart.domain.model.Cart;
-import module.cart.service.CartService;
-import module.io.input.Input;
-import module.io.input.type.Discount;
-import module.io.output.Output;
-import module.kiosk.Kiosk;
 import module.menu.domain.model.Menu;
 import module.menu.exception.MenuException;
 import module.menu.type.Category;
@@ -13,34 +7,48 @@ import module.menu.type.Category;
 import java.util.ArrayList;
 import java.util.List;
 
-import static module.menu.type.MenuExceptionCode.*;
+import static module.menu.type.MenuExceptionCode.EMPTY_MENU;
 
 public class MenuService {
     private final List<Menu> hamburgerList = new ArrayList<>();
     private final List<Menu> drinkList = new ArrayList<>();
     private final List<Menu> dessertList = new ArrayList<>();
 
-    private final Input input;
-    private final Output output;
-    private final CartService cartService;
-
-    private final int ZERO = 0;
-    private final int ONE = 1;
-    private final int TWO = 2;
-
-    public MenuService(Input input, Output output, CartService cartService) {
-        this.input = input;
-        this.output = output;
-        this.cartService = cartService;
-
-    }
-
-    public List<Menu> getMenuList(Category category) {
-        return switch (category) {
+    public void getMenuList(Category category) {
+        List<Menu> menuList = switch (category) {
             case HAMBURGER -> hamburgerList;
             case DRINKS -> drinkList;
             case DESSERTS -> dessertList;
         };
+
+        System.out.println("[ " + menuList.get(0).getCategory().name() + " MENU ]");
+        for (Menu menu : menuList) {
+            System.out.println(menu.getId() + ". " + menu.getName() + "     | W " + menu.getPrice()
+                    + "       | " + menu.getDescription());
+        }
+        System.out.println("0. 뒤로가기");
+    }
+
+    public Menu getMenu(Category category, int input) {
+        Menu menu = switch (category) {
+            case HAMBURGER -> hamburgerList.stream()
+                    .filter(x -> x.getId() == input)
+                    .findFirst()
+                    .orElseThrow(() -> new MenuException(EMPTY_MENU));
+            case DRINKS -> drinkList.stream()
+                    .filter(x -> x.getId() == input)
+                    .findFirst()
+                    .orElseThrow(() -> new MenuException(EMPTY_MENU));
+            case DESSERTS -> dessertList.stream()
+                    .filter(x -> x.getId() == input)
+                    .findFirst()
+                    .orElseThrow(() -> new MenuException(EMPTY_MENU));
+        };
+
+        System.out.println("선택한 메뉴 : " + menu.getName() + "     | W "
+                + menu.getPrice() + "       | " + menu.getDescription());
+
+        return menu;
     }
 
     public void inputTestData() {
@@ -58,63 +66,6 @@ public class MenuService {
         dessertList.add(new Menu(2, Category.DESSERTS, "snack wrap", 2500, "스낵랩"));
         dessertList.add(new Menu(3, Category.DESSERTS, "chicken tender", 2000, "치킨 텐더"));
         dessertList.add(new Menu(4, Category.DESSERTS, "cheese ball", 1500, "치즈 볼"));
-    }
-
-    public Category selectCategory(List<Cart> cartList, boolean orderMenuFlag) {
-        int input = this.input.inputInt();
-        if (input == ZERO) {
-            throw new MenuException(INPUT_ZERO_EXIT);
-        }
-
-        if (input == 4 && orderMenuFlag) {
-            int sum = output.printConfirmOrderMenu(cartList);
-
-            int nextInput = this.input.inputInt();
-            if (ONE == nextInput) {
-                discountOrder(sum);
-                throw new MenuException(CONFIRM_ORDER);
-            } else if (TWO == nextInput) {
-                throw new MenuException(CANCEL_CONFIRM_ORDER);
-            } else {
-                throw new MenuException(INPUT_WRONG);
-            }
-        } else if (input == 5 && orderMenuFlag) {
-            cartService.removeCartList();
-            Kiosk.setOrderMenuFlag(false);
-            throw new MenuException(CANCEL_CONFIRM_ORDER);
-        }
-        return Category.fromCategoryVal(input);
-    }
-
-    public Menu getMenu(Category category) {
-        int input = this.input.inputInt();
-
-        return switch (category) {
-            case HAMBURGER -> hamburgerList.stream()
-                    .filter(x -> x.getId() == input)
-                    .findFirst()
-                    .orElseThrow(() -> new MenuException(EMPTY_MENU));
-            case DRINKS -> drinkList.stream()
-                    .filter(x -> x.getId() == input)
-                    .findFirst()
-                    .orElseThrow(() -> new MenuException(EMPTY_MENU));
-            case DESSERTS -> dessertList.stream()
-                    .filter(x -> x.getId() == input)
-                    .findFirst()
-                    .orElseThrow(() -> new MenuException(EMPTY_MENU));
-        };
-    }
-
-    private void discountOrder(int sum) {
-        output.printDiscountOrder();
-
-        int input = this.input.inputInt();
-
-        Discount discount = Discount.fromDiscountPercent(input);
-        sum = (int) (sum * ((100 - discount.getDiscountPercent()) * 0.01));
-        System.out.println("주문이 완료되었습니다. 금액은 W " + sum + " 입니다.");
-        cartService.removeCartList();
-        Kiosk.setOrderMenuFlag(false);
     }
 
 }
