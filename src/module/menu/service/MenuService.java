@@ -106,7 +106,7 @@ public class MenuService {
     }
 
     private void discountOrder(int sum) {
-        output.printDiscountOrder(sum);
+        output.printDiscountOrder();
 
         int input = this.input.inputInt();
 

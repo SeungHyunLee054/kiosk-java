@@ -2,7 +2,6 @@ package module.cart.exception;
 
 import common.exception.BaseException;
 import module.cart.type.CartExceptionCode;
-import module.io.input.type.InputExceptionCode;
 
 public class CartException extends BaseException {
     private final CartExceptionCode cartExceptionCode;

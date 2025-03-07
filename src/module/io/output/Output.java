@@ -66,7 +66,7 @@ public class Output {
         return sum;
     }
 
-    public void printDiscountOrder(int sum) {
+    public void printDiscountOrder() {
         System.out.println("할인 정보를 입력해주세요.");
         for (Discount discount : Discount.values()) {
             System.out.println(discount.getValue() + ". " + discount.getName() + " : "
