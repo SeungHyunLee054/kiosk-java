@@ -4,6 +4,7 @@ import module.kiosk.type.Discount;
 import module.menu.domain.model.MenuItem;
 import module.menu.type.Category;
 
+import java.util.List;
 import java.util.Map;
 
 public class Output {
@@ -46,6 +47,19 @@ public class Output {
             System.out.println(discount.getValue() + ". " + discount.getName() + " : "
                     + discount.getDiscountPercent() + "%");
         }
+    }
+
+    public void printMessage(String message) {
+        System.out.println(message);
+    }
+
+    public void printMenuItemList(Category category, List<MenuItem> menuItemList) {
+        System.out.println("[ " + category.name() + " MENU ]");
+        for (MenuItem menuItem : menuItemList) {
+            System.out.println(menuItem.getId() + ". " + menuItem.getName() + "     | W " + menuItem.getPrice()
+                    + "       | " + menuItem.getDescription());
+        }
+        System.out.println("0. 뒤로가기");
     }
 
 }

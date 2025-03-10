@@ -16,15 +16,8 @@ public class MenuService {
         this.menuList = menuList;
     }
 
-    public void getMenuItemList(Category category) {
-        List<MenuItem> menuItemList = getMenu(category).getMenuItemList();
-
-        System.out.println("[ " + category.name() + " MENU ]");
-        for (MenuItem menuItem : menuItemList) {
-            System.out.println(menuItem.getId() + ". " + menuItem.getName() + "     | W " + menuItem.getPrice()
-                    + "       | " + menuItem.getDescription());
-        }
-        System.out.println("0. 뒤로가기");
+    public List<MenuItem> getMenuItemList(Category category) {
+        return getMenu(category).getMenuItemList();
     }
 
     public Menu getMenu(Category category) {

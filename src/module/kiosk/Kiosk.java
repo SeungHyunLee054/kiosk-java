@@ -13,6 +13,8 @@ import module.menu.service.MenuService;
 import module.menu.type.Category;
 import module.menu.type.MenuExceptionCode;
 
+import java.util.List;
+
 
 public class Kiosk {
     private final MenuService menuService;
@@ -24,6 +26,7 @@ public class Kiosk {
     private final int ZERO = 0;
     private final int ONE = 1;
     private final int TWO = 2;
+    private final int THREE = 3;
     private final int FOUR = 4;
     private final int FIVE = 5;
 
@@ -36,91 +39,86 @@ public class Kiosk {
     }
 
     public void start() {
+        try {
+            runKioskLoop();
+        } catch (MenuException e) {
+            output.printMessage(e.getMessage());
+        } finally {
+            input.closeScanner();
+        }
+    }
+
+    private void runKioskLoop() {
         do {
             Category category;
             try {
                 output.printCategory();
-                int input;
 
                 if (orderMenuFlag) {
-                    output.printCheckOrderMenu();
-                    input = this.input.inputInt();
-                    validateZeroExit(input);
-                    if (input == FOUR) {
-                        int sum = output.printConfirmOrderMenu(cartService.getCart());
-
-                        int nextInput = this.input.inputInt();
-                        if (nextInput == ONE) {
-                            discountOrder(sum);
-                            continue;
-                        } else if (nextInput == TWO) {
-                            continue;
-                        } else {
-                            throw new MenuException(MenuExceptionCode.INPUT_WRONG);
-                        }
-                    } else if (input == FIVE) {
-                        cartService.removeCart();
-                        orderMenuFlag = false;
-                        throw new CartException(CartExceptionCode.CANCEL_CONFIRM_ORDER);
-                    }
+                    category = orderMenuOrGetCategory();
                 } else {
-                    input = this.input.inputInt();
-                    validateZeroExit(input);
+                    category = getCategory();
                 }
 
-                category = Category.fromCategoryVal(input);
-                menuService.getMenuItemList(category);
+                List<MenuItem> menuItemList = menuService.getMenuItemList(category);
+                output.printMenuItemList(category, menuItemList);
+
+                MenuItem seletedMenuItem = getSeletedMenuItem(category);
+
+                cartService.addCart(seletedMenuItem);
+                orderMenuFlag = true;
             } catch (MenuException e) {
-                System.out.println(e.getMessage());
                 if (e.getErrorCode().equals(MenuExceptionCode.INPUT_ZERO_EXIT)) {
-                    break;
-                } else {
-                    continue;
+                    throw e;
+                }
+                output.printMessage(e.getMessage());
+            } catch (CartException e) {
+                if (!e.getErrorCode().equals(CartExceptionCode.CONFIRM_ORDER)) {
+                    output.printMessage(e.getMessage());
                 }
             } catch (InputException e) {
-                System.out.println(e.getMessage());
-                continue;
-            } catch (CartException e) {
-                System.out.println(e.getMessage());
-                continue;
+                output.printMessage(e.getMessage());
             }
-
-            MenuItem selectedMenu;
-            try {
-                int input = this.input.inputInt();
-                if (input == ZERO) {
-                    throw new MenuException(MenuExceptionCode.INPUT_ZERO_BACK);
-                }
-
-                selectedMenu = menuService.getMenuItem(category, input);
-            } catch (CartException e) {
-                System.out.println(e.getMessage());
-                continue;
-            } catch (MenuException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
-
-            try {
-                cartService.addCart(selectedMenu);
-                orderMenuFlag = true;
-            } catch (CartException e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
-
         } while (true);
-
-        input.closeScanner();
     }
 
-    private void validateZeroExit(int input) {
-        if (input == ZERO) {
-            throw new MenuException(MenuExceptionCode.INPUT_ZERO_EXIT);
+    private Category getCategory() {
+        int input = this.input.inputInt();
+        validateZeroExit(input);
+
+        return Category.fromCategoryVal(input);
+    }
+
+    private Category orderMenuOrGetCategory() {
+        output.printCheckOrderMenu();
+        int input = this.input.inputInt();
+        validateZeroExit(input);
+
+        if (input == FOUR) {
+            confirmOrder();
+        } else if (input >= ONE && input <= THREE) {
+            return Category.fromCategoryVal(input);
+        } else if (input == FIVE) {
+            cartService.removeCart();
+            orderMenuFlag = false;
+            throw new CartException(CartExceptionCode.CANCEL_CONFIRM_ORDER);
+        }
+
+        throw new MenuException(MenuExceptionCode.INPUT_WRONG);
+    }
+
+    private void confirmOrder() {
+        int sum = output.printConfirmOrderMenu(cartService.getCart());
+
+        int input = this.input.inputInt();
+        if (input == ONE) {
+            applyDiscount(sum);
+        } else if (input != TWO) {
+            throw new MenuException(MenuExceptionCode.INPUT_WRONG);
         }
     }
 
-    private void discountOrder(int sum) {
+    private void applyDiscount(int sum) {
         output.printDiscountOrder();
 
         int input = this.input.inputInt();
@@ -130,5 +128,21 @@ public class Kiosk {
         System.out.println("주문이 완료되었습니다. 금액은 W " + sum + " 입니다.");
         cartService.removeCart();
         orderMenuFlag = false;
+        throw new CartException(CartExceptionCode.CONFIRM_ORDER);
+    }
+
+    private MenuItem getSeletedMenuItem(Category category) {
+        int input = this.input.inputInt();
+        if (input == ZERO) {
+            throw new MenuException(MenuExceptionCode.INPUT_ZERO_BACK);
+        }
+
+        return menuService.getMenuItem(category, input);
+    }
+
+    private void validateZeroExit(int input) {
+        if (input == ZERO) {
+            throw new MenuException(MenuExceptionCode.INPUT_ZERO_EXIT);
+        }
     }
 }
