@@ -2,13 +2,11 @@ package module.cart.service;
 
 import module.cart.domain.model.Cart;
 import module.cart.exception.CartException;
+import module.cart.type.CartExceptionCode;
 import module.io.input.Input;
 import module.menu.domain.model.MenuItem;
 
 import java.util.Map;
-
-import static module.cart.type.CartExceptionCode.CANCEL_ADD_CART;
-import static module.cart.type.CartExceptionCode.INPUT_WRONG;
 
 
 public class CartService {
@@ -30,9 +28,9 @@ public class CartService {
             cart.addMenuToCart(menuItem);
             System.out.println(menuItem.getName() + " 이 장바구니에 추가되었습니다.");
         } else if (TWO == input) {
-            throw new CartException(CANCEL_ADD_CART);
+            throw new CartException(CartExceptionCode.CANCEL_ADD_CART);
         } else {
-            throw new CartException(INPUT_WRONG);
+            throw new CartException(CartExceptionCode.INPUT_WRONG);
         }
     }
 

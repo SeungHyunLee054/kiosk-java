@@ -10,8 +10,7 @@ import module.menu.domain.model.MenuItem;
 import module.menu.exception.MenuException;
 import module.menu.service.MenuService;
 import module.menu.type.Category;
-
-import static module.menu.type.MenuExceptionCode.*;
+import module.menu.type.MenuExceptionCode;
 
 
 public class Kiosk {
@@ -56,12 +55,12 @@ public class Kiosk {
                         } else if (nextInput == TWO) {
                             continue;
                         } else {
-                            throw new MenuException(INPUT_WRONG);
+                            throw new MenuException(MenuExceptionCode.INPUT_WRONG);
                         }
                     } else if (input == FIVE && orderMenuFlag) {
                         cartService.removeCart();
                         orderMenuFlag = false;
-                        throw new MenuException(CANCEL_CONFIRM_ORDER);
+                        throw new MenuException(MenuExceptionCode.CANCEL_CONFIRM_ORDER);
                     }
                 } else {
                     input = this.input.inputInt();
@@ -72,7 +71,7 @@ public class Kiosk {
                 menuService.getMenuItemList(category);
             } catch (MenuException e) {
                 System.out.println(e.getMessage());
-                if (e.getErrorCode().equals(INPUT_ZERO_EXIT)) {
+                if (e.getErrorCode().equals(MenuExceptionCode.INPUT_ZERO_EXIT)) {
                     break;
                 } else {
                     continue;
@@ -86,7 +85,7 @@ public class Kiosk {
             try {
                 int input = this.input.inputInt();
                 if (input == ZERO) {
-                    throw new MenuException(INPUT_ZERO_BACK);
+                    throw new MenuException(MenuExceptionCode.INPUT_ZERO_BACK);
                 }
 
                 selectedMenu = menuService.getMenuItem(category, input);
@@ -113,7 +112,7 @@ public class Kiosk {
 
     private void validateZeroExit(int input) {
         if (input == ZERO) {
-            throw new MenuException(INPUT_ZERO_EXIT);
+            throw new MenuException(MenuExceptionCode.INPUT_ZERO_EXIT);
         }
     }
 

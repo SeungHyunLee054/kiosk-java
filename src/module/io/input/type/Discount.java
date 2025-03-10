@@ -2,7 +2,6 @@ package module.io.input.type;
 
 import module.io.input.exception.InputException;
 
-import static module.io.input.type.InputExceptionCode.INPUT_WRONG;
 
 public enum Discount {
     PERSON_OF_NATIONAL_MERIT(30, "국가유공자", 1),
@@ -27,7 +26,7 @@ public enum Discount {
             }
         }
 
-        throw new InputException(INPUT_WRONG);
+        throw new InputException(InputExceptionCode.INPUT_WRONG);
     }
 
     public int getDiscountPercent() {

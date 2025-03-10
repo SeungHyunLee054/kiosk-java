@@ -1,8 +1,8 @@
 package module.menu.type;
 
 import module.io.input.exception.InputException;
+import module.io.input.type.InputExceptionCode;
 
-import static module.io.input.type.InputExceptionCode.INPUT_WRONG;
 
 public enum Category {
     HAMBURGER(1), DRINKS(2), DESSERTS(3);
@@ -23,6 +23,6 @@ public enum Category {
             }
         }
 
-        throw new InputException(INPUT_WRONG);
+        throw new InputException(InputExceptionCode.INPUT_WRONG);
     }
 }
