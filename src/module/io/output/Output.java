@@ -1,10 +1,10 @@
 package module.io.output;
 
-import module.cart.domain.model.Cart;
 import module.io.input.type.Discount;
+import module.menu.domain.model.Menu;
 import module.menu.type.Category;
 
-import java.util.List;
+import java.util.Map;
 
 public class Output {
     public void printCategory() {
@@ -21,15 +21,15 @@ public class Output {
         System.out.println("5. Cancel");
     }
 
-    public int printConfirmOrderMenu(List<Cart> cartList) {
+    public int printConfirmOrderMenu(Map<Menu, Integer> cart) {
         System.out.println("아래와 같이 주문하시겠습니까?");
         System.out.println("[ Orders ]");
 
         int sum = 0;
-        for (Cart cart : cartList) {
-            System.out.println(cart.getMenu().getName() + "     | W " + cart.getMenu().getPrice()
-                    + "       | " + cart.getMenu().getDescription());
-            sum += cart.getMenu().getPrice() * cart.getQuantity();
+        for (Map.Entry<Menu, Integer> entry : cart.entrySet()) {
+            System.out.println(entry.getKey().getName() + "     | W " + entry.getKey().getPrice()
+                    + "       | " + entry.getKey().getDescription() + "   | " + entry.getValue() + "개");
+            sum += entry.getKey().getPrice() * entry.getValue();
         }
 
         System.out.println("[ Total Price ]");

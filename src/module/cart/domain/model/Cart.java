@@ -2,24 +2,25 @@ package module.cart.domain.model;
 
 import module.menu.domain.model.Menu;
 
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class Cart {
-    private final Menu menu;
-    private int quantity;
+    private final Map<Menu, Integer> cart = new HashMap<>();
 
-    public Cart(Menu menuId, int quantity) {
-        this.menu = menuId;
-        this.quantity = quantity;
+    public void addMenuToCart(Menu menu) {
+        cart.put(menu, cart.getOrDefault(menu, 0) + 1);
     }
 
-    public Menu getMenu() {
-        return menu;
+    public Map<Menu, Integer> getCart() {
+        return cart;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void removeCart() {
+        for (Map.Entry<Menu, Integer> entry : cart.entrySet()) {
+            cart.remove(entry.getKey());
+        }
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }
