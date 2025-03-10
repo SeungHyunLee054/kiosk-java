@@ -18,8 +18,8 @@ public class CartService {
         this.cart = cart;
     }
 
-    private final int ONE = 1;
-    private final int TWO = 2;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
 
     public void addCart(MenuItem menuItem) {
         System.out.println(menuItem.getName() + "     | W "
