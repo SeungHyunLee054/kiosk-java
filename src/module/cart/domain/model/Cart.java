@@ -7,18 +7,18 @@ import java.util.Map;
 
 
 public class Cart {
-    private Map<MenuItem, Integer> cart = new HashMap<>();
+    private Map<MenuItem, Integer> cartItems = new HashMap<>();
 
     public void addMenuToCart(MenuItem menuItem) {
-        cart.put(menuItem, cart.getOrDefault(menuItem, 0) + 1);
+        cartItems.put(menuItem, cartItems.getOrDefault(menuItem, 0) + 1);
     }
 
-    public Map<MenuItem, Integer> getCart() {
-        return cart;
+    public Map<MenuItem, Integer> getCartItems() {
+        return cartItems;
     }
 
     public void removeCart() {
-        this.cart = new HashMap<>();
+        this.cartItems = new HashMap<>();
     }
 
 }

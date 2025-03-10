@@ -10,8 +10,13 @@ import java.util.Map;
 
 
 public class CartService {
-    private final Input input = new Input();
-    private final Cart cart = new Cart();
+    private final Input input;
+    private final Cart cart;
+
+    public CartService(Input input, Cart cart) {
+        this.input = input;
+        this.cart = cart;
+    }
 
     private final int ONE = 1;
     private final int TWO = 2;
@@ -35,7 +40,7 @@ public class CartService {
     }
 
     public Map<MenuItem, Integer> getCart() {
-        return cart.getCart();
+        return cart.getCartItems();
     }
 
     public void removeCart() {

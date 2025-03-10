@@ -10,14 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuService {
-    private final List<Menu> menuList = new ArrayList<>();
+    private final List<Menu> menuList;
+
+    public MenuService(List<Menu> menuList) {
+        this.menuList = menuList;
+    }
 
     public void getMenuItemList(Category category) {
-        List<MenuItem> menuItemList = menuList.stream()
-                .filter(x -> category.equals(x.getCategory()))
-                .findFirst()
-                .orElseThrow(()->new MenuException(MenuExceptionCode.EMPTY_MENU_ITEM))
-                .getMenuItemList();
+        List<MenuItem> menuItemList = getMenu(category).getMenuItemList();
 
         System.out.println("[ " + category.name() + " MENU ]");
         for (MenuItem menuItem : menuItemList) {
@@ -27,16 +27,19 @@ public class MenuService {
         System.out.println("0. 뒤로가기");
     }
 
-    public MenuItem getMenuItem(Category category, int input) {
-        MenuItem menuItem = menuList.stream()
-                .filter(x -> category.equals(x.getCategory()))
+    public Menu getMenu(Category category) {
+        return menuList.stream()
+                .filter(x -> x.getCategory().equals(category))
                 .findFirst()
-                .orElseThrow(()-> new MenuException(MenuExceptionCode.EMPTY_MENU))
-                .getMenuItemList().stream()
-                .filter(y -> y.getId() == input)
-                .findFirst()
-                .orElseThrow(()->new MenuException(MenuExceptionCode.EMPTY_MENU_ITEM));
+                .orElseThrow(() -> new MenuException(MenuExceptionCode.EMPTY_MENU));
+    }
 
+    public MenuItem getMenuItem(Category category, int input) {
+        Menu menu = getMenu(category);
+        MenuItem menuItem = menu.getMenuItemList().stream()
+                .filter(x -> x.getId() == input)
+                .findFirst()
+                .orElseThrow(() -> new MenuException(MenuExceptionCode.EMPTY_MENU_ITEM));
 
         System.out.println("선택한 메뉴 : " + menuItem.getName() + "     | W "
                 + menuItem.getPrice() + "       | " + menuItem.getDescription());
