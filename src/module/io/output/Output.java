@@ -1,7 +1,7 @@
 package module.io.output;
 
 import module.io.input.type.Discount;
-import module.menu.domain.model.Menu;
+import module.menu.domain.model.MenuItem;
 import module.menu.type.Category;
 
 import java.util.Map;
@@ -21,12 +21,12 @@ public class Output {
         System.out.println("5. Cancel");
     }
 
-    public int printConfirmOrderMenu(Map<Menu, Integer> cart) {
+    public int printConfirmOrderMenu(Map<MenuItem, Integer> cart) {
         System.out.println("아래와 같이 주문하시겠습니까?");
         System.out.println("[ Orders ]");
 
         int sum = 0;
-        for (Map.Entry<Menu, Integer> entry : cart.entrySet()) {
+        for (Map.Entry<MenuItem, Integer> entry : cart.entrySet()) {
             System.out.println(entry.getKey().getName() + "     | W " + entry.getKey().getPrice()
                     + "       | " + entry.getKey().getDescription() + "   | " + entry.getValue() + "개");
             sum += entry.getKey().getPrice() * entry.getValue();

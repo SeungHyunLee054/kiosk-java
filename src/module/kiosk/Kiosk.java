@@ -6,7 +6,7 @@ import module.io.input.Input;
 import module.io.input.exception.InputException;
 import module.io.input.type.Discount;
 import module.io.output.Output;
-import module.menu.domain.model.Menu;
+import module.menu.domain.model.MenuItem;
 import module.menu.exception.MenuException;
 import module.menu.service.MenuService;
 import module.menu.type.Category;
@@ -69,27 +69,27 @@ public class Kiosk {
                 }
 
                 category = Category.fromCategoryVal(input);
-                menuService.getMenuList(category);
+                menuService.getMenuItemList(category);
             } catch (MenuException e) {
                 System.out.println(e.getMessage());
-                if (e.getErrorCode().equals(INPUT_WRONG)) {
-                    continue;
-                } else {
+                if (e.getErrorCode().equals(INPUT_ZERO_EXIT)) {
                     break;
+                } else {
+                    continue;
                 }
             } catch (InputException e) {
                 System.out.println(e.getMessage());
                 continue;
             }
 
-            Menu selectedMenu;
+            MenuItem selectedMenu;
             try {
                 int input = this.input.inputInt();
                 if (input == ZERO) {
                     throw new MenuException(INPUT_ZERO_BACK);
                 }
 
-                selectedMenu = menuService.getMenu(category, input);
+                selectedMenu = menuService.getMenuItem(category, input);
             } catch (CartException e) {
                 System.out.println(e.getMessage());
                 continue;

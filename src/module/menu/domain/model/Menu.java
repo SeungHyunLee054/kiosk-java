@@ -1,39 +1,21 @@
 package module.menu.domain.model;
 
-import module.menu.type.Category;
+import java.util.List;
 
 public class Menu {
-    private final long id;
-    private final Category category;
-    private final String name;
-    private final int price;
-    private final String description;
+    private final List<MenuItem> menuItemList;
+    private final String category;
 
-    public Menu(long id, Category category, String name, int price, String description) {
-        this.id = id;
+    public Menu(List<MenuItem> menuItem, String category) {
+        this.menuItemList = menuItem;
         this.category = category;
-        this.name = name;
-        this.price = price;
-        this.description = description;
     }
 
-    public long getId() {
-        return id;
+    public List<MenuItem> getMenuItemList() {
+        return menuItemList;
     }
 
-    public Category getCategory() {
+    public String getCategory() {
         return category;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public String getDescription() {
-        return description;
     }
 }
