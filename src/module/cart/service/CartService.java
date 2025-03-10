@@ -3,7 +3,6 @@ package module.cart.service;
 import module.cart.domain.model.Cart;
 import module.cart.exception.CartException;
 import module.io.input.Input;
-import module.menu.domain.model.Menu;
 import module.menu.domain.model.MenuItem;
 
 import java.util.Map;
