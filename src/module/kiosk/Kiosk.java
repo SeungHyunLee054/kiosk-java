@@ -4,7 +4,7 @@ import module.cart.exception.CartException;
 import module.cart.service.CartService;
 import module.io.input.Input;
 import module.io.input.exception.InputException;
-import module.io.input.type.Discount;
+import module.kiosk.type.Discount;
 import module.io.output.Output;
 import module.menu.domain.model.MenuItem;
 import module.menu.exception.MenuException;

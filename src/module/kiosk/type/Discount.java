@@ -1,6 +1,7 @@
-package module.io.input.type;
+package module.kiosk.type;
 
 import module.io.input.exception.InputException;
+import module.io.input.type.InputExceptionCode;
 
 
 public enum Discount {

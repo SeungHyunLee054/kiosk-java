@@ -1,6 +1,6 @@
 package module.io.output;
 
-import module.io.input.type.Discount;
+import module.kiosk.type.Discount;
 import module.menu.domain.model.MenuItem;
 import module.menu.type.Category;
 
