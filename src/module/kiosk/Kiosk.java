@@ -138,7 +138,7 @@ public class Kiosk {
 
     /**
      * 총 결제 비용에 할인을 적용하는 메서드
-     * @param sum
+     * @param sum 할인 전 총 결제 금액
      */
     private void applyDiscount(int sum) {
         output.printDiscountOrder();
