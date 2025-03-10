@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+/**
+ * 장바구니는 메뉴의 정보와 수량을 키-값으로 매핑
+ */
 public class Cart {
     private Map<MenuItem, Integer> cartItems = new HashMap<>();
 

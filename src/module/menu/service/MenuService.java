@@ -16,10 +16,20 @@ public class MenuService {
         this.menuList = menuList;
     }
 
+    /**
+     * 카테고리에 해당하는 메뉴의 리스트를 가져오는 메서드
+     * @param category 선택한 카테고리
+     * @return 해당 카테고리의 메뉴 리스트
+     */
     public List<MenuItem> getMenuItemList(Category category) {
         return getMenu(category).getMenuItemList();
     }
 
+    /**
+     * 메뉴 리스트에서 해당 카테고리의 메뉴를 가져오는 메서드
+     * @param category 선택한 카테고리
+     * @return 해당 카테고리의 메뉴
+     */
     public Menu getMenu(Category category) {
         return menuList.stream()
                 .filter(x -> x.getCategory().equals(category))
@@ -27,6 +37,12 @@ public class MenuService {
                 .orElseThrow(() -> new MenuException(MenuExceptionCode.EMPTY_MENU));
     }
 
+    /**
+     * 해당 카테고리의 메뉴에서 내가 선택한 메뉴 정보를 가져오는 메서드
+     * @param category 선택한 카테고리
+     * @param input 선택한 메뉴 id
+     * @return 선택한 메뉴 정보
+     */
     public MenuItem getMenuItem(Category category, int input) {
         Menu menu = getMenu(category);
         MenuItem menuItem = menu.getMenuItemList().stream()
@@ -40,6 +56,9 @@ public class MenuService {
         return menuItem;
     }
 
+    /**
+     * 초기 데이터 init
+     */
     public void inputTestData() {
         List<MenuItem> hamburgerList = new ArrayList<>();
         hamburgerList.add(new MenuItem(1, "hamburger", 4500, "기본 햄버거"));
