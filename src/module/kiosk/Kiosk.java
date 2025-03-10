@@ -32,7 +32,7 @@ public class Kiosk {
         this.input = input;
         this.output = output;
         this.cartService = cartService;
-        menuService.inputTestData();
+        this.menuService.inputTestData();
     }
 
     public void start() {
