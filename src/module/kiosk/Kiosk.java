@@ -45,7 +45,7 @@ public class Kiosk {
                     output.printCheckOrderMenu();
                     input = this.input.inputInt();
                     validateZeroExit(input);
-                    if (input == FOUR && orderMenuFlag) {
+                    if (input == FOUR) {
                         int sum = output.printConfirmOrderMenu(cartService.getCart());
 
                         int nextInput = this.input.inputInt();
@@ -57,7 +57,7 @@ public class Kiosk {
                         } else {
                             throw new MenuException(MenuExceptionCode.INPUT_WRONG);
                         }
-                    } else if (input == FIVE && orderMenuFlag) {
+                    } else if (input == FIVE) {
                         cartService.removeCart();
                         orderMenuFlag = false;
                         throw new MenuException(MenuExceptionCode.CANCEL_CONFIRM_ORDER);
