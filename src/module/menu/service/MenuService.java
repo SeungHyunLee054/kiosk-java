@@ -14,7 +14,7 @@ public class MenuService {
 
     public void getMenuItemList(Category category) {
         List<MenuItem> menuItemList = menuList.stream()
-                .filter(x -> category.name().equals(x.getCategory()))
+                .filter(x -> category.equals(x.getCategory()))
                 .findFirst()
                 .orElseThrow(()->new MenuException(MenuExceptionCode.EMPTY_MENU_ITEM))
                 .getMenuItemList();
@@ -29,7 +29,7 @@ public class MenuService {
 
     public MenuItem getMenuItem(Category category, int input) {
         MenuItem menuItem = menuList.stream()
-                .filter(x -> category.name().equals(x.getCategory()))
+                .filter(x -> category.equals(x.getCategory()))
                 .findFirst()
                 .orElseThrow(()-> new MenuException(MenuExceptionCode.EMPTY_MENU))
                 .getMenuItemList().stream()
@@ -63,9 +63,9 @@ public class MenuService {
         dessertList.add(new MenuItem(3, "chicken tender", 2000, "치킨 텐더"));
         dessertList.add(new MenuItem(4, "cheese ball", 1500, "치즈 볼"));
 
-        menuList.add(new Menu(hamburgerList, "HAMBURGER"));
-        menuList.add(new Menu(drinkList, "DRINKS"));
-        menuList.add(new Menu(dessertList, "DESSERTS"));
+        menuList.add(new Menu(hamburgerList, Category.HAMBURGER));
+        menuList.add(new Menu(drinkList, Category.DRINKS));
+        menuList.add(new Menu(dessertList, Category.DESSERTS));
     }
 
 }

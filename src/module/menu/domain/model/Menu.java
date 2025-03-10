@@ -1,13 +1,15 @@
 package module.menu.domain.model;
 
+import module.menu.type.Category;
+
 import java.util.List;
 
 public class Menu {
     private final List<MenuItem> menuItemList;
-    private final String category;
+    private final Category category;
 
-    public Menu(List<MenuItem> menuItem, String category) {
-        this.menuItemList = menuItem;
+    public Menu(List<MenuItem> menuItemList, Category category) {
+        this.menuItemList = menuItemList;
         this.category = category;
     }
 
@@ -15,7 +17,7 @@ public class Menu {
         return menuItemList;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 }
