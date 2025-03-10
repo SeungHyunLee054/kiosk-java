@@ -2,10 +2,11 @@ package module.kiosk;
 
 import module.cart.exception.CartException;
 import module.cart.service.CartService;
+import module.cart.type.CartExceptionCode;
 import module.io.input.Input;
 import module.io.input.exception.InputException;
-import module.kiosk.type.Discount;
 import module.io.output.Output;
+import module.kiosk.type.Discount;
 import module.menu.domain.model.MenuItem;
 import module.menu.exception.MenuException;
 import module.menu.service.MenuService;
@@ -60,7 +61,7 @@ public class Kiosk {
                     } else if (input == FIVE) {
                         cartService.removeCart();
                         orderMenuFlag = false;
-                        throw new MenuException(MenuExceptionCode.CANCEL_CONFIRM_ORDER);
+                        throw new CartException(CartExceptionCode.CANCEL_CONFIRM_ORDER);
                     }
                 } else {
                     input = this.input.inputInt();
@@ -77,6 +78,9 @@ public class Kiosk {
                     continue;
                 }
             } catch (InputException e) {
+                System.out.println(e.getMessage());
+                continue;
+            } catch (CartException e) {
                 System.out.println(e.getMessage());
                 continue;
             }
