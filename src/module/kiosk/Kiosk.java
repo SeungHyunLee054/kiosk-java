@@ -110,7 +110,7 @@ public class Kiosk {
         validateZeroExit(input);
 
         if (input == FOUR) {
-            confirmOrCancelOrder();
+            confirmOrReturnOrder();
         } else if (input >= ONE && input <= THREE) {
             return Category.fromCategoryVal(input);
         } else if (input == FIVE) {
@@ -123,9 +123,9 @@ public class Kiosk {
     }
 
     /**
-     * 주문을 확정하거나 취소하는 메서드
+     * 주문을 확정하거나 메뉴판으로 돌아가는 메서드
      */
-    private void confirmOrCancelOrder() {
+    private void confirmOrReturnOrder() {
         int sum = output.printConfirmOrderMenu(cartService.getCart());
 
         int input = this.input.inputInt();
