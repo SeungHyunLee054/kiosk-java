@@ -91,6 +91,7 @@ public class Kiosk {
 
     /**
      * 카테고리 값을 가져오는 메서드, 0 입력시 프로그램 종료
+     *
      * @return Category
      */
     private Category getCategory() {
@@ -102,6 +103,7 @@ public class Kiosk {
 
     /**
      * 주문을 진행하거나 카테고리 값을 가져오는 메서드, 0 입력시 프로그램 종료
+     *
      * @return Category
      */
     private Category orderMenuOrGetCategory() {
@@ -138,6 +140,7 @@ public class Kiosk {
 
     /**
      * 총 결제 비용에 할인을 적용하는 메서드
+     *
      * @param sum 할인 전 총 결제 금액
      */
     private void applyDiscount(int sum) {
@@ -146,7 +149,7 @@ public class Kiosk {
         int input = this.input.inputInt();
 
         Discount discount = Discount.fromDiscountPercent(input);
-        sum = (int) (sum * ((100 - discount.getDiscountPercent()) * 0.01));
+        sum = (int) (sum * (1 - discount.getDiscountPercent() / 100.0));
         System.out.println("주문이 완료되었습니다. 금액은 W " + sum + " 입니다.");
         cartService.removeCart();
         orderMenuFlag = false;
@@ -155,6 +158,7 @@ public class Kiosk {
 
     /**
      * 내가 선택한 메뉴의 정보를 가져오는 메서드, 0 입력시 뒤로가기
+     *
      * @param category 메뉴의 카테고리
      * @return 내가 선택한 메뉴
      */
@@ -169,6 +173,7 @@ public class Kiosk {
 
     /**
      * 종료를 위해 0이 입력되었는지 확인하는 메서드
+     *
      * @param input 입력받은 값
      */
     private void validateZeroExit(int input) {
