@@ -23,6 +23,7 @@ public class CartService {
 
     /**
      * 장바구니에 메뉴를 추가하는 메서드
+     *
      * @param menuItem 내가 고른 메뉴
      */
     public void addCart(MenuItem menuItem) {
@@ -33,10 +34,10 @@ public class CartService {
 
         int input = this.input.inputInt();
 
-        if (ONE == input) {
+        if (input == ONE) {
             cart.addMenuToCart(menuItem);
             System.out.println(menuItem.getName() + " 이 장바구니에 추가되었습니다.");
-        } else if (TWO == input) {
+        } else if (input == TWO) {
             throw new CartException(CartExceptionCode.CANCEL_ADD_CART);
         } else {
             throw new CartException(CartExceptionCode.INPUT_WRONG);
@@ -45,6 +46,7 @@ public class CartService {
 
     /**
      * 장바구니를 가져오는 메서드
+     *
      * @return 메뉴와 수량이 매핑된 Map 값
      */
     public Map<MenuItem, Integer> getCart() {
