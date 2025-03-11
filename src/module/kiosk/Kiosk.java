@@ -149,7 +149,7 @@ public class Kiosk {
         int input = this.input.inputInt();
 
         Discount discount = Discount.fromDiscountPercent(input);
-        sum = (int) (sum * (1 - discount.getDiscountPercent() / 100.0));
+        sum = (int) (sum * (1 - discount.getDiscountPercent() / 100.00));
         System.out.println("주문이 완료되었습니다. 금액은 W " + sum + " 입니다.");
         cartService.removeCart();
         orderMenuFlag = false;
