@@ -7,6 +7,7 @@ import module.menu.domain.model.Menu;
 import module.menu.service.MenuService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Main {
@@ -14,7 +15,7 @@ public class Main {
         Input input = new Input();
         Output output = new Output();
         List<Menu> menuList = new ArrayList<>();
-        Cart cart = new Cart();
+        Cart cart = new Cart(new HashMap<>());
         CartService cartService = new CartService(input, cart);
         MenuService menuService = new MenuService(menuList);
         Kiosk kiosk = new Kiosk(menuService, input, output, cartService);
