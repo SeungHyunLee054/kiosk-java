@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Input input = new Input();
+        Input input = Input.getInstance();
         Output output = new Output();
         List<Menu> menuList = new ArrayList<>();
         Map<MenuItem, Integer> cartItems = new HashMap<>();

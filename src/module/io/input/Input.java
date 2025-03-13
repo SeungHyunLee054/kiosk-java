@@ -3,23 +3,33 @@ package module.io.input;
 import module.io.input.exception.InputException;
 import module.io.input.type.InputExceptionCode;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
-public class Input {
-    private final Scanner scanner = new Scanner(System.in);
+public class Input implements AutoCloseable {
+    private static final Input instance = new Input();
+    private final Scanner scanner;
 
-    public int inputInt() {
-        int input;
-        try {
-            input = scanner.nextInt();
-        } catch (NumberFormatException e) {
-            throw new InputException(InputExceptionCode.INPUT_WRONG);
-        }
-        return input;
+    private Input() {
+        scanner = new Scanner(System.in);
     }
 
-    public void closeScanner() {
+    public static Input getInstance() {
+        return instance;
+    }
+
+    public int inputInt() {
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException e) {
+            scanner.nextLine();
+            throw new InputException(InputExceptionCode.INPUT_WRONG);
+        }
+    }
+
+    @Override
+    public void close() {
         scanner.close();
     }
 }
