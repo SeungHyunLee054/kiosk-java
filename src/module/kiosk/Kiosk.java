@@ -111,10 +111,10 @@ public class Kiosk {
         int input = this.input.inputInt();
         validateZeroExit(input);
 
-        if (input == FOUR) {
-            confirmOrderOrReturn();
-        } else if (input >= ONE && input <= THREE) {
+        if (input >= ONE && input <= THREE) {
             return Category.fromCategoryVal(input);
+        } else if (input == FOUR) {
+            confirmOrderOrReturn();
         } else if (input == FIVE) {
             cartService.removeCart();
             orderMenuFlag = false;
