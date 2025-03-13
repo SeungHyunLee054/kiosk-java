@@ -116,25 +116,25 @@ public class MenuService {
                 .build());
 
         List<MenuItem> dessertList = new ArrayList<>();
-        drinkList.add(MenuItem.builder()
+        dessertList.add(MenuItem.builder()
                 .id(1)
                 .name("pancake")
                 .price(5000)
                 .description("팬 케이크")
                 .build());
-        drinkList.add(MenuItem.builder()
+        dessertList.add(MenuItem.builder()
                 .id(2)
                 .name("snack wrap")
                 .price(2500)
                 .description("스낵랩")
                 .build());
-        drinkList.add(MenuItem.builder()
+        dessertList.add(MenuItem.builder()
                 .id(3)
                 .name("chicken tender")
                 .price(2000)
                 .description("치킨 텐더")
                 .build());
-        drinkList.add(MenuItem.builder()
+        dessertList.add(MenuItem.builder()
                 .id(4)
                 .name("cheese ball")
                 .price(1500)
