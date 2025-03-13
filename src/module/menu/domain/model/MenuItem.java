@@ -31,7 +31,7 @@ public class MenuItem {
 
     /**
      * builder를 직접 구현
-     * @return
+     * @return MenuItem
      */
     public static Builder builder() {
         return new Builder();
