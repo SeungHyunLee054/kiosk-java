@@ -33,35 +33,35 @@ public class MenuItem {
      * builder를 직접 구현
      * @return MenuItem
      */
-    public static Builder builder() {
-        return new Builder();
+    public static MenuItemBuilder builder() {
+        return new MenuItemBuilder();
     }
 
-    public static class Builder {
+    public static class MenuItemBuilder {
         private long id;
         private String name;
         private int price;
         private String description;
 
-        Builder() {
+        MenuItemBuilder() {
         }
 
-        public Builder id(long id) {
+        public MenuItemBuilder id(long id) {
             this.id = id;
             return this;
         }
 
-        public Builder name(String name) {
+        public MenuItemBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public Builder price(int price) {
+        public MenuItemBuilder price(int price) {
             this.price = price;
             return this;
         }
 
-        public Builder description(String description) {
+        public MenuItemBuilder description(String description) {
             this.description = description;
             return this;
         }
