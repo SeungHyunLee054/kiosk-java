@@ -28,4 +28,46 @@ public class MenuItem {
     public String getDescription() {
         return description;
     }
+
+    /**
+     * builder를 직접 구현
+     * @return
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    public static class Builder {
+        private long id;
+        private String name;
+        private int price;
+        private String description;
+
+        Builder() {
+        }
+
+        public Builder id(long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder price(int price) {
+            this.price = price;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public MenuItem build() {
+            return new MenuItem(this.id, this.name, this.price, this.description);
+        }
+    }
 }

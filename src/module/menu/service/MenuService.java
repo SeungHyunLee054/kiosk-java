@@ -18,6 +18,7 @@ public class MenuService {
 
     /**
      * 카테고리에 해당하는 메뉴의 리스트를 가져오는 메서드
+     *
      * @param category 선택한 카테고리
      * @return 해당 카테고리의 메뉴 리스트
      */
@@ -27,6 +28,7 @@ public class MenuService {
 
     /**
      * 메뉴 리스트에서 해당 카테고리의 메뉴를 가져오는 메서드
+     *
      * @param category 선택한 카테고리
      * @return 해당 카테고리의 메뉴
      */
@@ -39,8 +41,9 @@ public class MenuService {
 
     /**
      * 해당 카테고리의 메뉴에서 내가 선택한 메뉴 정보를 가져오는 메서드
+     *
      * @param category 선택한 카테고리
-     * @param input 선택한 메뉴 id
+     * @param input    선택한 메뉴 id
      * @return 선택한 메뉴 정보
      */
     public MenuItem getMenuItem(Category category, int input) {
@@ -61,22 +64,82 @@ public class MenuService {
      */
     public void inputTestData() {
         List<MenuItem> hamburgerList = new ArrayList<>();
-        hamburgerList.add(new MenuItem(1, "hamburger", 4500, "기본 햄버거"));
-        hamburgerList.add(new MenuItem(2, "cheese hamburger", 5000, "치즈 햄버거"));
-        hamburgerList.add(new MenuItem(3, "bacon hamburger", 5500, "베이컨 햄버거"));
-        hamburgerList.add(new MenuItem(4, "chicken hamburger", 5500, "치킨버거"));
+        hamburgerList.add(MenuItem.builder()
+                .id(1)
+                .name("hamburger")
+                .price(4500)
+                .description("기본 햄버거")
+                .build());
+        hamburgerList.add(MenuItem.builder()
+                .id(2)
+                .name("cheese hamburger")
+                .price(5000)
+                .description("치즈 햄버거")
+                .build());
+        hamburgerList.add(MenuItem.builder()
+                .id(3)
+                .name("bacon hamburger")
+                .price(5500)
+                .description("베이컨 햄버거")
+                .build());
+        hamburgerList.add(MenuItem.builder()
+                .id(4)
+                .name("chicken hamburger")
+                .price(5500)
+                .description("치킨버거")
+                .build());
 
         List<MenuItem> drinkList = new ArrayList<>();
-        drinkList.add(new MenuItem(1, "coke", 2000, "콜라"));
-        drinkList.add(new MenuItem(2, "cider", 2000, "사이다"));
-        drinkList.add(new MenuItem(3, "fanta", 2000, "환타"));
-        drinkList.add(new MenuItem(4, "coffee", 2000, "커피"));
+        drinkList.add(MenuItem.builder()
+                .id(1)
+                .name("coke")
+                .price(2000)
+                .description("콜라")
+                .build());
+        drinkList.add(MenuItem.builder()
+                .id(2)
+                .name("cider")
+                .price(2000)
+                .description("사이다")
+                .build());
+        drinkList.add(MenuItem.builder()
+                .id(3)
+                .name("fanta")
+                .price(2000)
+                .description("환타")
+                .build());
+        drinkList.add(MenuItem.builder()
+                .id(4)
+                .name("coffee")
+                .price(2000)
+                .description("커피")
+                .build());
 
         List<MenuItem> dessertList = new ArrayList<>();
-        dessertList.add(new MenuItem(1, "pancake", 5000, "팬 케이크"));
-        dessertList.add(new MenuItem(2, "snack wrap", 2500, "스낵랩"));
-        dessertList.add(new MenuItem(3, "chicken tender", 2000, "치킨 텐더"));
-        dessertList.add(new MenuItem(4, "cheese ball", 1500, "치즈 볼"));
+        drinkList.add(MenuItem.builder()
+                .id(1)
+                .name("pancake")
+                .price(5000)
+                .description("팬 케이크")
+                .build());
+        drinkList.add(MenuItem.builder()
+                .id(2)
+                .name("snack wrap")
+                .price(2500)
+                .description("스낵랩")
+                .build());
+        drinkList.add(MenuItem.builder()
+                .id(3)
+                .name("chicken tender")
+                .price(2000)
+                .description("치킨 텐더")
+                .build());
+        drinkList.add(MenuItem.builder()
+                .id(4)
+                .name("cheese ball")
+                .price(1500)
+                .description("치즈 볼")
+                .build());
 
         menuList.add(new Menu(hamburgerList, Category.HAMBURGER));
         menuList.add(new Menu(drinkList, Category.DRINKS));
