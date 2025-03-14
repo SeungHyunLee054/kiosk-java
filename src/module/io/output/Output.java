@@ -64,7 +64,7 @@ public class Output {
     }
 
     public void printRemoveMenuItemInCart() {
-        System.out.println("삭제할 메뉴명을 입력해 주세요");
+        System.out.println("삭제할 메뉴명을 입력해 주세요.");
     }
 
 }
