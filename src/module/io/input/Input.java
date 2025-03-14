@@ -28,6 +28,10 @@ public class Input implements AutoCloseable {
         }
     }
 
+    public String inputString() {
+        return scanner.next();
+    }
+
     @Override
     public void close() {
         scanner.close();

@@ -1,5 +1,6 @@
 package module.kiosk;
 
+import module.cart.domain.model.Cart;
 import module.cart.exception.CartException;
 import module.cart.service.CartService;
 import module.cart.type.CartExceptionCode;
@@ -78,7 +79,8 @@ public class Kiosk {
                 }
                 output.printMessage(e.getMessage());
             } catch (CartException e) {
-                if (!e.getErrorCode().equals(CartExceptionCode.CONFIRM_ORDER)) {
+                if (!e.getErrorCode().equals(CartExceptionCode.CONFIRM_ORDER) &&
+                        !e.getErrorCode().equals(CartExceptionCode.SUCCESS_DELETE)) {
                     output.printMessage(e.getMessage());
                 }
             } catch (InputException e) {
@@ -126,14 +128,36 @@ public class Kiosk {
      * 주문을 확정하거나 메뉴판으로 돌아가는 메서드
      */
     private void confirmOrderOrReturn() {
-        int sum = output.printConfirmOrderMenu(cartService.getCart());
+        Cart cart = cartService.getCart();
+        int sum = output.printConfirmOrderMenu(cart);
 
         int input = this.input.inputInt();
         if (input == ONE) {
             applyDiscount(sum);
-        } else if (input != TWO) {
-            throw new MenuException(MenuExceptionCode.INPUT_WRONG);
+        } else if (input == TWO) {
+            throw new CartException(CartExceptionCode.RETURN_TO_MENU);
+        } else if (input == THREE) {
+            removeSelectedMenuItemInCart(cart);
         }
+
+        throw new CartException(CartExceptionCode.INPUT_WRONG);
+    }
+
+    /**
+     * 메뉴명을 입력하여 장바구니에서 해당 메뉴를 삭제하는 메서드
+     *
+     * @param cart 메뉴를 삭제할 장바구니
+     */
+    private void removeSelectedMenuItemInCart(Cart cart) {
+        output.printRemoveMenuItemInCart();
+
+        String input = this.input.inputString();
+        cartService.removeMenuItemInCart(input);
+        if (cart.getCartItems().isEmpty()) {
+            orderMenuFlag = false;
+        }
+
+        throw new CartException(CartExceptionCode.SUCCESS_DELETE);
     }
 
     /**

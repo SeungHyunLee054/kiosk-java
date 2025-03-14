@@ -6,8 +6,6 @@ import module.cart.type.CartExceptionCode;
 import module.io.input.Input;
 import module.menu.domain.model.MenuItem;
 
-import java.util.Map;
-
 
 public class CartService {
     private final Input input;
@@ -47,10 +45,10 @@ public class CartService {
     /**
      * 장바구니를 가져오는 메서드
      *
-     * @return 메뉴와 수량이 매핑된 Map 값
+     * @return Cart
      */
-    public Map<MenuItem, Integer> getCart() {
-        return cart.getCartItems();
+    public Cart getCart() {
+        return cart;
     }
 
     /**
@@ -58,6 +56,22 @@ public class CartService {
      */
     public void removeCart() {
         cart.removeCart();
+    }
+
+    /**
+     * 장바구니에서 입력받은 메뉴명을 조회해 삭제하는 메서드
+     * @param name 메뉴명
+     */
+    public void removeMenuItemInCart(String name) {
+        MenuItem menuItem = cart.getCartItems().entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new CartException(CartExceptionCode.NOT_EXIST_MENU))
+                .getKey();
+
+        cart.getCartItems().remove(menuItem);
+        System.out.println(menuItem.getName() + " 을(를) 취소하였습니다.");
     }
 
 }

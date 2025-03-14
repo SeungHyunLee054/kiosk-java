@@ -1,5 +1,6 @@
 package module.io.output;
 
+import module.cart.domain.model.Cart;
 import module.kiosk.type.Discount;
 import module.menu.domain.model.MenuItem;
 import module.menu.type.Category;
@@ -22,12 +23,12 @@ public class Output {
         System.out.println("5. Cancel");
     }
 
-    public int printConfirmOrderMenu(Map<MenuItem, Integer> cart) {
+    public int printConfirmOrderMenu(Cart cart) {
         System.out.println("아래와 같이 주문하시겠습니까?");
         System.out.println("[ Orders ]");
 
         int sum = 0;
-        for (Map.Entry<MenuItem, Integer> entry : cart.entrySet()) {
+        for (Map.Entry<MenuItem, Integer> entry : cart.getCartItems().entrySet()) {
             System.out.println(entry.getKey().getName() + "     | W " + entry.getKey().getPrice()
                     + "       | " + entry.getKey().getDescription() + "   | " + entry.getValue() + "개");
             sum += entry.getKey().getPrice() * entry.getValue();
@@ -36,7 +37,7 @@ public class Output {
         System.out.println("[ Total Price ]");
         System.out.println("W " + sum);
 
-        System.out.println("1. 주문   2. 메뉴판");
+        System.out.println("1. 주문   2. 메뉴판  3. 부분취소");
 
         return sum;
     }
@@ -60,6 +61,10 @@ public class Output {
                     + "       | " + menuItem.getDescription());
         }
         System.out.println("0. 뒤로가기");
+    }
+
+    public void printRemoveMenuItemInCart() {
+        System.out.println("삭제할 메뉴명을 입력해 주세요");
     }
 
 }
