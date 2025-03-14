@@ -15,9 +15,12 @@ import module.menu.type.Category;
 import module.menu.type.MenuExceptionCode;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Kiosk {
+    private final Logger logger = Logger.getLogger(Kiosk.class.getName());
     private final MenuService menuService;
     private final Input input;
     private final Output output;
@@ -86,8 +89,7 @@ public class Kiosk {
             } catch (InputException e) {
                 output.printMessage(e.getMessage());
             } catch (Exception e) {
-                output.printMessage(e.getMessage());
-                e.printStackTrace();
+                logger.log(Level.SEVERE, "예상치 못한 오류 발생", e);
                 break;
             }
         } while (true);
