@@ -43,7 +43,7 @@ public class Kiosk {
      * depth를 낮추기 위해 메서드로 추출
      */
     public void start() {
-        try(input) {
+        try (input) {
             runKioskLoop();
         } catch (MenuException e) {
             output.printMessage(e.getMessage());
