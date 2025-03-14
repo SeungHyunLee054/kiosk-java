@@ -85,6 +85,11 @@ public class Kiosk {
                 }
             } catch (InputException e) {
                 output.printMessage(e.getMessage());
+            } catch (Exception e) {
+                output.printMessage(e.getMessage());
+                e.printStackTrace();
+                break;
+
             }
         } while (true);
     }
