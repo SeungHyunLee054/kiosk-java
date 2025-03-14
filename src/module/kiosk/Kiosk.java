@@ -89,7 +89,6 @@ public class Kiosk {
                 output.printMessage(e.getMessage());
                 e.printStackTrace();
                 break;
-
             }
         } while (true);
     }
