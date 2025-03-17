@@ -60,17 +60,13 @@ public class CartService {
 
     /**
      * 장바구니에서 입력받은 메뉴명을 조회해 삭제하는 메서드
+     *
      * @param name 메뉴명
      */
     public void removeMenuItemInCart(String name) {
-        MenuItem menuItem = cart.getCartItems().entrySet()
-                .stream()
-                .filter(entry -> entry.getKey().getName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new CartException(CartExceptionCode.NOT_EXIST_MENU))
-                .getKey();
+        MenuItem menuItem = cart.findMenuItemByName(name);
 
-        cart.getCartItems().remove(menuItem);
+        cart.removeMenuItemFromCart(menuItem);
         System.out.println(menuItem.getName() + " 을(를) 취소하였습니다.");
     }
 

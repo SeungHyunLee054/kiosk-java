@@ -1,8 +1,9 @@
 package module.cart.domain.model;
 
+import module.cart.exception.CartException;
+import module.cart.type.CartExceptionCode;
 import module.menu.domain.model.MenuItem;
 
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -26,6 +27,19 @@ public class Cart {
 
     public void removeCart() {
         this.cartItems.clear();
+    }
+
+    public MenuItem findMenuItemByName(String name) {
+        return cartItems.entrySet()
+                .stream()
+                .filter(entry -> entry.getKey().getName().equals(name))
+                .findFirst()
+                .orElseThrow(() -> new CartException(CartExceptionCode.NOT_EXIST_MENU))
+                .getKey();
+    }
+
+    public void removeMenuItemFromCart(MenuItem menuItem) {
+        cartItems.remove(menuItem);
     }
 
 }
