@@ -26,8 +26,6 @@ public class Kiosk {
     private final Output output;
     private final CartService cartService;
 
-    private boolean orderMenuFlag = false;
-
     public Kiosk(MenuService menuService, Input input, Output output, CartService cartService) {
         this.menuService = menuService;
         this.input = input;
@@ -57,7 +55,7 @@ public class Kiosk {
             try {
                 output.printCategory();
 
-                if (orderMenuFlag) {
+                if (!cartService.getCart().getCartItems().isEmpty()) {
                     category = orderMenuOrGetCategory();
                 } else {
                     category = getCategory();
@@ -69,7 +67,6 @@ public class Kiosk {
                 MenuItem seletedMenuItem = getSeletedMenuItem(category);
 
                 cartService.addCart(seletedMenuItem);
-                orderMenuFlag = true;
             } catch (MenuException e) {
                 if (e.getErrorCode().equals(MenuExceptionCode.INPUT_ZERO_EXIT)) {
                     throw e;
@@ -117,7 +114,6 @@ public class Kiosk {
             confirmOrderOrReturn();
         } else if (input == 5) {
             cartService.removeCart();
-            orderMenuFlag = false;
             throw new CartException(CartExceptionCode.CANCEL_CONFIRM_ORDER);
         }
 
@@ -153,9 +149,6 @@ public class Kiosk {
 
         String input = this.input.inputString();
         cartService.removeMenuItemInCart(input);
-        if (cart.getCartItems().isEmpty()) {
-            orderMenuFlag = false;
-        }
 
         throw new CartException(CartExceptionCode.SUCCESS_DELETE);
     }
@@ -174,7 +167,6 @@ public class Kiosk {
         sum = (int) (sum * (1 - discount.getDiscountPercent() / 100.00));
         System.out.println("주문이 완료되었습니다. 금액은 W " + sum + " 입니다.");
         cartService.removeCart();
-        orderMenuFlag = false;
         throw new CartException(CartExceptionCode.CONFIRM_ORDER);
     }
 
