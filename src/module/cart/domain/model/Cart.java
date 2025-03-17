@@ -12,11 +12,11 @@ import java.util.Map;
  * 장바구니는 메뉴의 정보와 수량을 키-값으로 매핑
  */
 public class Cart {
-    private static final Map<MenuItem, Integer> cartItems = new HashMap<>();
-
+    private final Map<MenuItem, Integer> cartItems;
     private static final Cart instance = new Cart();
 
     private Cart() {
+        cartItems = new HashMap<>();
     }
 
     public static Cart getInstance() {
