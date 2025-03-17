@@ -16,9 +16,6 @@ public class CartService {
         this.cart = cart;
     }
 
-    private static final int ONE = 1;
-    private static final int TWO = 2;
-
     /**
      * 장바구니에 메뉴를 추가하는 메서드
      *
@@ -32,10 +29,10 @@ public class CartService {
 
         int input = this.input.inputInt();
 
-        if (input == ONE) {
+        if (input == 1) {
             cart.addMenuToCart(menuItem);
             System.out.println(menuItem.getName() + " 이 장바구니에 추가되었습니다.");
-        } else if (input == TWO) {
+        } else if (input == 2) {
             throw new CartException(CartExceptionCode.CANCEL_ADD_CART);
         } else {
             throw new CartException(CartExceptionCode.INPUT_WRONG);

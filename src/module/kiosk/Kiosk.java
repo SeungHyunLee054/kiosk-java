@@ -27,12 +27,6 @@ public class Kiosk {
     private final CartService cartService;
 
     private boolean orderMenuFlag = false;
-    private static final int ZERO = 0;
-    private static final int ONE = 1;
-    private static final int TWO = 2;
-    private static final int THREE = 3;
-    private static final int FOUR = 4;
-    private static final int FIVE = 5;
 
     public Kiosk(MenuService menuService, Input input, Output output, CartService cartService) {
         this.menuService = menuService;
@@ -117,11 +111,11 @@ public class Kiosk {
         int input = this.input.inputInt();
         validateZeroExit(input);
 
-        if (input >= ONE && input <= THREE) {
+        if (input >= 1 && input <= 3) {
             return Category.fromCategoryVal(input);
-        } else if (input == FOUR) {
+        } else if (input == 4) {
             confirmOrderOrReturn();
-        } else if (input == FIVE) {
+        } else if (input == 5) {
             cartService.removeCart();
             orderMenuFlag = false;
             throw new CartException(CartExceptionCode.CANCEL_CONFIRM_ORDER);
@@ -138,11 +132,11 @@ public class Kiosk {
         int sum = output.printConfirmOrderMenu(cart);
 
         int input = this.input.inputInt();
-        if (input == ONE) {
+        if (input == 1) {
             applyDiscount(sum);
-        } else if (input == TWO) {
+        } else if (input == 2) {
             throw new CartException(CartExceptionCode.RETURN_TO_MENU);
-        } else if (input == THREE) {
+        } else if (input == 3) {
             removeSelectedMenuItemInCart(cart);
         }
 
@@ -192,7 +186,7 @@ public class Kiosk {
      */
     private MenuItem getSeletedMenuItem(Category category) {
         int input = this.input.inputInt();
-        if (input == ZERO) {
+        if (input == 0) {
             throw new MenuException(MenuExceptionCode.INPUT_ZERO_BACK);
         }
 
@@ -205,7 +199,7 @@ public class Kiosk {
      * @param input 입력받은 값
      */
     private void validateZeroExit(int input) {
-        if (input == ZERO) {
+        if (input == 0) {
             throw new MenuException(MenuExceptionCode.INPUT_ZERO_EXIT);
         }
     }
