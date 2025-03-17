@@ -51,8 +51,8 @@ public class CartService {
     /**
      * 장바구니를 삭제하는 메서드
      */
-    public void removeCart() {
-        cart.removeCart();
+    public void clearCart() {
+        cart.clearCart();
     }
 
     /**

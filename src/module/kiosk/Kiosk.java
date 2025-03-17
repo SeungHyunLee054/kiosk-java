@@ -113,7 +113,7 @@ public class Kiosk {
         } else if (input == 4) {
             confirmOrderOrReturn();
         } else if (input == 5) {
-            cartService.removeCart();
+            cartService.clearCart();
             throw new CartException(CartExceptionCode.CANCEL_CONFIRM_ORDER);
         }
 
@@ -164,7 +164,7 @@ public class Kiosk {
         Discount discount = Discount.fromDiscountPercent(input);
         sum = (int) (sum * (1 - discount.getDiscountPercent() / 100.00));
         System.out.println("주문이 완료되었습니다. 금액은 W " + sum + " 입니다.");
-        cartService.removeCart();
+        cartService.clearCart();
         throw new CartException(CartExceptionCode.CONFIRM_ORDER);
     }
 

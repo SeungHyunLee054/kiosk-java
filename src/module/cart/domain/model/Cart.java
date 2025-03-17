@@ -25,7 +25,7 @@ public class Cart {
         return cartItems;
     }
 
-    public void removeCart() {
+    public void clearCart() {
         this.cartItems.clear();
     }
 
