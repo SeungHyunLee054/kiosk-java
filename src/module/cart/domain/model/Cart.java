@@ -4,6 +4,7 @@ import module.cart.exception.CartException;
 import module.cart.type.CartExceptionCode;
 import module.menu.domain.model.MenuItem;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -11,10 +12,15 @@ import java.util.Map;
  * 장바구니는 메뉴의 정보와 수량을 키-값으로 매핑
  */
 public class Cart {
-    private final Map<MenuItem, Integer> cartItems;
+    private static final Map<MenuItem, Integer> cartItems = new HashMap<>();
 
-    public Cart(Map<MenuItem, Integer> cartItems) {
-        this.cartItems = cartItems;
+    private static final Cart instance = new Cart();
+
+    private Cart() {
+    }
+
+    public static Cart getInstance() {
+        return instance;
     }
 
     public void addMenuToCart(MenuItem menuItem) {
@@ -26,7 +32,7 @@ public class Cart {
     }
 
     public void clearCart() {
-        this.cartItems.clear();
+        cartItems.clear();
     }
 
     public MenuItem findMenuItemByName(String name) {
