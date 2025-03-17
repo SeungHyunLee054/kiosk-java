@@ -3,6 +3,8 @@ package module.kiosk.type;
 import module.io.input.exception.InputException;
 import module.io.input.type.InputExceptionCode;
 
+import java.util.Arrays;
+
 
 public enum Discount {
     PERSON_OF_NATIONAL_MERIT(30, "국가유공자", 1),
@@ -21,13 +23,10 @@ public enum Discount {
     }
 
     public static Discount fromDiscountPercent(int value) {
-        for (Discount discount : Discount.values()) {
-            if (discount.value == value) {
-                return discount;
-            }
-        }
-
-        throw new InputException(InputExceptionCode.INPUT_WRONG);
+        return Arrays.stream(Discount.values())
+                .filter(discount -> discount.value == value)
+                .findFirst()
+                .orElseThrow(() -> new InputException(InputExceptionCode.INPUT_WRONG));
     }
 
     public int getDiscountPercent() {

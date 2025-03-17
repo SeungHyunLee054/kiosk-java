@@ -3,6 +3,8 @@ package module.menu.type;
 import module.io.input.exception.InputException;
 import module.io.input.type.InputExceptionCode;
 
+import java.util.Arrays;
+
 
 public enum Category {
     HAMBURGER(1), DRINKS(2), DESSERTS(3);
@@ -17,12 +19,9 @@ public enum Category {
     }
 
     public static Category fromCategoryVal(int value) {
-        for (Category category : Category.values()) {
-            if (category.getValue() == value) {
-                return category;
-            }
-        }
-
-        throw new InputException(InputExceptionCode.INPUT_WRONG);
+        return Arrays.stream(Category.values())
+                .filter(category -> category.value == value)
+                .findFirst()
+                .orElseThrow(() -> new InputException(InputExceptionCode.INPUT_WRONG));
     }
 }
