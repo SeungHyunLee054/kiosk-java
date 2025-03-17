@@ -25,7 +25,7 @@ public class Cart {
     }
 
     public void removeCart() {
-        this.cartItems = new HashMap<>();
+        this.cartItems.clear();
     }
 
 }
