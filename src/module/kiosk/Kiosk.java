@@ -133,7 +133,7 @@ public class Kiosk {
         } else if (input == 2) {
             throw new CartException(CartExceptionCode.RETURN_TO_MENU);
         } else if (input == 3) {
-            removeSelectedMenuItemInCart(cart);
+            removeSelectedMenuItemInCart();
         }
 
         throw new CartException(CartExceptionCode.INPUT_WRONG);
@@ -141,10 +141,8 @@ public class Kiosk {
 
     /**
      * 메뉴명을 입력하여 장바구니에서 해당 메뉴를 삭제하는 메서드
-     *
-     * @param cart 메뉴를 삭제할 장바구니
      */
-    private void removeSelectedMenuItemInCart(Cart cart) {
+    private void removeSelectedMenuItemInCart() {
         output.printRemoveMenuItemInCart();
 
         String input = this.input.inputString();
