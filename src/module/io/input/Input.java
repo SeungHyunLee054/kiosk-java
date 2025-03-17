@@ -29,6 +29,11 @@ public class Input implements AutoCloseable {
     }
 
     public String inputString() {
+        if (scanner.hasNextLine()) {
+            String result = scanner.next();
+            result += scanner.nextLine();
+            return result;
+        }
         return scanner.next();
     }
 
